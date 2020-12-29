@@ -5,15 +5,19 @@ import java.util.concurrent.Executors
 object Main extends App {
 
   /**
-   * Basic problem
-   * JVM maps threads in 1-2-1 manner with OS threads
+   * Basic Problem:
+   * JVM maps threads in 1-2-1 manner with OS threads.
+   *
+   * Output:
+   * Thread-0 start-1
+   * Thread-0 end-1
    */
   println("start")
   Thread.sleep(1000)
   println("end")
 
   /**
-   * Concrete problem
+   * Concrete Problem:
    * Run 2 tasks concurrently with 1 thread
    */
   def task(id: Int): Runnable = () => {
@@ -23,14 +27,24 @@ object Main extends App {
   }
 
   /**
-   * Attempt #1
+   * Attempt #1:
    * 1 task => 1 thread
+   *
+   * Output:
+   * Thread-0 start-1
+   * Thread-0 end-1
    */
   new Thread(task(1)).start()
 
   /**
-   * Attempt #2
+   * Attempt #2:
    * 2 tasks => 1 thread
+   *
+   * Output:
+   * pool-1-thread-1 start-1
+   * pool-1-thread-1 end-1
+   * pool-1-thread-1 start-2
+   * pool-1-thread-1 end-2
    */
   val oneThreadExecutor = Executors.newFixedThreadPool(1)
   (1 to 2).foreach(id =>
@@ -38,8 +52,14 @@ object Main extends App {
   )
 
   /**
-   * Attempt #3
+   * Attempt #3:
    * 2 tasks => 2 threads
+   *
+   * Output:
+   * pool-1-thread-2 start-2
+   * pool-1-thread-1 start-1
+   * pool-1-thread-2 end-2
+   * pool-1-thread-1 end-1
    */
   val twoThreadExecutor = Executors.newFixedThreadPool(2)
   (1 to 2).foreach(id =>
