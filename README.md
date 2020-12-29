@@ -1,4 +1,6 @@
-# [ZIO Fibers][blog-post]
+# ZIO Fibers
+This repo is based on examples shown in ZIO non-blocking sleep [blog post][blog-post]. 
+
 ZIO is a functional library for asynchronous and concurrent programming.
 
 It could be used for non-blocking (asynchronous) sleep.
